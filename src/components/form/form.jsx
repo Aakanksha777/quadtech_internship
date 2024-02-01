@@ -5,7 +5,14 @@ const FormField = ({ handleClose, filteredObj }) => {
   const [user, setUser] = useState({ name: "", age: "" });
 
   const handleBookingDetails = () => {
-    localStorage.setItem("user");
+    const bookedTickets = JSON.parse(localStorage.getItem("tickets")) || [];
+    localStorage.setItem(
+      "tickets",
+      JSON.stringify([...bookedTickets, { user, shows: filteredObj }])
+    );
+
+    const userDetails = JSON.parse(localStorage.getItem("user")) || [];
+    localStorage.setItem("user", JSON.stringify([...userDetails, user]));
   };
 
   const handleChange = (e) => {
