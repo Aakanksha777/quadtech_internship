@@ -1,23 +1,32 @@
-import logo from './logo.svg';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
+import Home from './pages/home';
+import SingleShow from './pages/singleShow';
+import React, { useState, useEffect } from "react";
 
 function App() {
+
+  const [shows, setShows] = useState([]);
+
+  useEffect(() => {
+    fetch("https://api.tvmaze.com/search/shows?q=all")
+      .then((res) => res.json())
+      .then((data) => {
+        setShows(data);
+        console.log("dataArray-home-page", data);
+      })
+      .catch((e) => console.log("Erros", e));
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route  path="/" element={ <Home shows={shows}/>}/>
+        <Route  path={`/show/:id`} element={  <SingleShow shows={shows}/>}/>
+
+      </Routes>
+     
+     
     </div>
   );
 }
