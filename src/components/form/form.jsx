@@ -26,7 +26,13 @@ const FormField = ({ handleClose, filteredObj }) => {
         name <input value={user.name} name="name" onChange={handleChange} />
       </label>
       <label>
-        age <input value={user.age} name="age" onChange={handleChange} />
+        age{" "}
+        <input
+          value={user.age}
+          name="age"
+          onChange={handleChange}
+          type="number"
+        />
       </label>
       <button onClick={handleBookingDetails}>Booked</button>
       <button onClick={handleClose}>X</button>
